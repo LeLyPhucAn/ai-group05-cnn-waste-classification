@@ -31,9 +31,9 @@ desktop.ini
 doc_content.txt
 __pycache__/
 
-# Report files (keep structure tracked)
-# report/
-
+# Report files (không đưa lên GitHub theo quy ước nhóm, gửi qua Zalo)
+report/
 
 src/generate_report_docx.py
 src/generate_vandap_docx.py
+src/generate_tv3_ketqua_danhgia_docx.py
