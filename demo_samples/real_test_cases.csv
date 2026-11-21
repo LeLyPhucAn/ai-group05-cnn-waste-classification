@@ -1,0 +1,14 @@
+STT,Ten_File,Lop_Thuc_Te,Nhom_Xu_Ly,Dieu_Kien_Chup,Du_Doan_Lop,Du_Doan_Nhom,Do_Tin_Cay_Phan_Tram,Ket_Qua_Dung_Sai,Ghi_Chu_Loi
+1,nhua_01.jpg,plastic,Rác tái chế,Nền trắng đủ sáng,plastic,Rác tái chế,98.50,Đúng,Chai nhựa PET trong suốt
+2,nhua_02.jpg,plastic,Rác tái chế,Nền bừa bộn thiếu sáng,white-glass,Rác tái chế,58.20,Sai,Nhầm nhựa trong sang thủy tinh trắng do góc phản chiếu
+3,kimloai_01.jpg,metal,Rác tái chế,Nền bàn gỗ,metal,Rác tái chế,96.30,Đúng,Vỏ lon Coca dẹp
+4,kimloai_02.jpg,metal,Rác tái chế,Nền gạch mờ,metal,Rác tái chế,92.10,Đúng,Hộp cá hộp thiếc
+5,thuytinh_01.jpg,white-glass,Rác tái chế,Nền trong nhà,white-glass,Rác tái chế,94.80,Đúng,Chai nước thủy tinh trong
+6,thuytinh_02.jpg,green-glass,Rác tái chế,Đủ sáng ngoài trời,green-glass,Rác tái chế,95.40,Đúng,Chai bia xanh lá
+7,carton_01.jpg,cardboard,Rác tái chế,Nền sàn nhà,cardboard,Rác tái chế,99.10,Đúng,Thùng mì tôm gấp gọn
+8,giay_01.jpg,paper,Rác tái chế,Nền bàn học,paper,Rác tái chế,97.20,Đúng,Tập tài liệu A4 cũ
+9,pin_01.jpg,battery,Rác nguy hại,Chụp cận cảnh,battery,Rác nguy hại,99.80,Đúng,Pin tiểu AA Panasonic
+10,huuco_01.jpg,biological,Rác hữu cơ,Nền đĩa sứ,biological,Rác hữu cơ,98.90,Đúng,Vỏ chuối chín
+11,quanao_01.jpg,clothes,Rác tái chế,Nền giường,clothes,Rác tái chế,99.60,Đúng,Áo phông cotton cũ
+12,giaydep_01.jpg,shoes,Rác tái chế,Nền cửa nhà,shoes,Rác tái chế,97.80,Đúng,Giày thể thao cũ
+13,racconlai_01.jpg,trash,Rác còn lại,Nền đất,trash,Rác còn lại,91.20,Đúng,Túi nilon rách dơ

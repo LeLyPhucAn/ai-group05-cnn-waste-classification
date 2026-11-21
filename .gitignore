@@ -31,7 +31,9 @@ desktop.ini
 doc_content.txt
 __pycache__/
 
-report/
+# Report files (keep structure tracked)
+# report/
+
 
 src/generate_report_docx.py
 src/generate_vandap_docx.py
