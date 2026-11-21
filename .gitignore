@@ -1,0 +1,37 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Caches and virtual environments
+.venv/
+venv/
+ENV/
+env/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Data and large vectors (as stated in document: không push dataset)
+data/*.npy
+data/*.npz
+data/dataset/
+data/raw/
+data/augmented/
+
+# OS specific files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# App logs
+*.log
+
+*.npy
+*.npz
+doc_content.txt
+__pycache__/
+
+report/
+
+src/generate_report_docx.py
+src/generate_vandap_docx.py
