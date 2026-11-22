@@ -35,7 +35,18 @@ def get_mobilenet_transform():
       2. Chuyển đổi thành Tensor [0, 1]
       3. Chuẩn hóa (Normalize) theo mean và std của ImageNet:
          mean = [0.485, 0.456, 0.406], std = [0.229, 0.224, 0.225]
+
+    Ưu tiên dùng chung transform của TV2 (src/preprocessing.py) để khớp 100% giữa
+    lúc train, trích xuất và suy luận trên app. Nếu không import được thì dùng bản dự phòng giống hệt.
     """
+    try:
+        try:
+            from src.preprocessing import get_base_transform  # chạy từ thư mục gốc dự án
+        except ImportError:
+            from preprocessing import get_base_transform      # chạy trực tiếp trong src/
+        return get_base_transform()
+    except ImportError:
+        pass
     return transforms.Compose([
         transforms.Resize((224, 224)),
         transforms.ToTensor(),
@@ -139,7 +150,8 @@ class MobileNetV2FeatureExtractor(nn.Module):
         self,
         root_dir: str,
         batch_size: int = 32,
-        num_workers: int = 0
+        num_workers: int = 0,
+        transform=None
     ) -> Tuple[np.ndarray, np.ndarray, List[str]]:
         """
         Trích xuất đặc trưng từ thư mục ảnh chia theo lớp (cấu trúc torchvision ImageFolder):
@@ -160,7 +172,21 @@ class MobileNetV2FeatureExtractor(nn.Module):
         if not os.path.exists(root_dir):
             raise FileNotFoundError(f"Không tìm thấy thư mục: {root_dir}")
 
-        dataset = ImageFolder(root=root_dir, transform=self.transform)
+        dataset = ImageFolder(root=root_dir, transform=transform or self.transform)
+        # Chuẩn hóa nhãn theo đúng thứ tự data/class_names.json (tránh lệch nhãn nếu thiếu 1 lớp)
+        _names_path = Path(__file__).resolve().parent.parent / "data" / "class_names.json"
+        if _names_path.exists():
+            import json
+            with open(_names_path, "r", encoding="utf-8") as f:
+                _ref = json.load(f)
+            unknown = [c for c in dataset.classes if c not in _ref]
+            if unknown:
+                raise ValueError(f"Thư mục chứa lớp không có trong class_names.json: {unknown}")
+            _remap = {dataset.class_to_idx[c]: _ref.index(c) for c in dataset.classes}
+            dataset.targets = [_remap[t] for t in dataset.targets]
+            dataset.samples = [(p, _remap[t]) for p, t in dataset.samples]
+            dataset.class_to_idx = {c: _ref.index(c) for c in dataset.classes}
+            dataset.classes = _ref
         dataloader = DataLoader(
             dataset,
             batch_size=batch_size,

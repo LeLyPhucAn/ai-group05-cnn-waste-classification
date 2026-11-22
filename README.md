@@ -1,4 +1,4 @@
-# Hệ thống Phân loại Rác thải Sinh hoạt qua Ảnh bằng CNN kết hợp Random Forest
+﻿# Hệ thống Phân loại Rác thải Sinh hoạt qua Ảnh bằng CNN kết hợp Random Forest
 
 **Môn học:** Trí tuệ Nhân tạo / Deep Learning  
 **Đề tài:** Đề tài 19 (Mức Nâng cao)  
@@ -110,3 +110,13 @@ python src/mobilenet_feature_extractor.py
 streamlit run app/app.py
 ```
 Ứng dụng sẽ mở giao diện trực quan trên trình duyệt (mặc định tại `http://localhost:8501`), hỗ trợ tải ảnh từ máy tính hoặc chụp ảnh trực tiếp qua camera để phân loại rác và nhận hướng dẫn xử lý.
+### 6.4. Trích xuất vector & train baseline (TV1 - Ngày 3)
+```bash
+# Cách A: dùng bộ Train đã tăng cường của TV2
+python src/extract_features.py --split-dir <dataset_split> --aug-dir <dataset_aug>
+# Cách B: tự sinh augmentation (giữ ảnh gốc + 2 bản biến đổi/ảnh)
+python src/extract_features.py --split-dir <dataset_split> --aug-copies 2
+# Train Random Forest baseline kiểm chứng pipeline
+python src/train_baseline.py
+```
+Đầu ra: `data/X_train_raw.npy, X_train_aug.npy, X_val.npy, X_test.npy` (+ `y_*.npy`) và `results/metrics/baseline_results.csv`.

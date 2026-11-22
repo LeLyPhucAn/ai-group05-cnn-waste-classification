@@ -37,3 +37,6 @@ report/
 src/generate_report_docx.py
 src/generate_vandap_docx.py
 src/generate_tv3_ketqua_danhgia_docx.py
+
+# Model baseline c?c b? c?a TV1 (không push)
+models/baseline/
