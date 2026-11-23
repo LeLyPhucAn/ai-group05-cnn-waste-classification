@@ -57,7 +57,7 @@ def get_predictor() -> WastePredictor:
 
 
 def list_demo_images() -> dict:
-    """Lấy tối đa 3 ảnh đại diện mỗi lớp trong demo_samples/ để test nhanh."""
+    """Lấy toàn bộ ảnh mẫu trong demo_samples/ (đủ 12 lớp rác thải) để kiểm thử nhanh."""
     if not DEMO_DIR.is_dir():
         return {}
     samples = {}
@@ -65,8 +65,8 @@ def list_demo_images() -> dict:
         if not cls_dir.is_dir():
             continue
         imgs = sorted(p for p in cls_dir.iterdir() if p.suffix.lower() in {".png", ".jpg", ".jpeg"})
-        for p in imgs[:3]:
-            samples[f"{get_vi_name(cls_dir.name)} - {p.name}"] = p
+        for p in imgs:
+            samples[f"{get_vi_name(cls_dir.name)} ({cls_dir.name}) - {p.name}"] = p
     return samples
 
 
@@ -119,7 +119,7 @@ with tab_upload:
         else:
             demos = list_demo_images()
             if demos:
-                chosen = st.selectbox("Chọn ảnh mẫu:", list(demos.keys()))
+                chosen = st.selectbox(f"Chọn ảnh mẫu ({len(demos)} ảnh - đủ 12 lớp):", list(demos.keys()))
                 pil_img = to_rgb(Image.open(demos[chosen]))
             else:
                 st.info("Chưa có ảnh mẫu trong demo_samples/.")
