@@ -1,0 +1,32 @@
+PHÂN TÍCH MA TRẬN NHẦM LẪN 12 LỚP RÁC THẢI (TẬP TEST ĐỘC LẬP)
+====================================================================
+Tổng số mẫu Test: 2325 | Dự đoán đúng: 2187 | Nhầm lẫn: 138
+
+TOP 15 CẶP LỚP NHẦM LẪN NHIỀU NHẤT (Nhãn thật -> Dự đoán nhầm):
+  - clothes      -> shoes       :  11 mẫu
+  - plastic      -> white-glass :   9 mẫu
+  - green-glass  -> white-glass :   7 mẫu
+  - cardboard    -> paper       :   7 mẫu
+  - white-glass  -> plastic     :   5 mẫu
+  - trash        -> clothes     :   5 mẫu
+  - brown-glass  -> metal       :   5 mẫu
+  - white-glass  -> metal       :   4 mẫu
+  - white-glass  -> green-glass :   4 mẫu
+  - metal        -> plastic     :   4 mẫu
+  - metal        -> battery     :   4 mẫu
+  - plastic      -> green-glass :   3 mẫu
+  - paper        -> cardboard   :   3 mẫu
+  - metal        -> white-glass :   3 mẫu
+  - green-glass  -> biological  :   3 mẫu
+
+CÁC NHÓM DỄ NHẦM TRỌNG TÂM THEO YÊU CẦU ĐỀ TÀI:
+  - plastic      -> metal       :   1 mẫu
+  - metal        -> plastic     :   4 mẫu
+  - plastic      -> white-glass :   9 mẫu
+  - white-glass  -> plastic     :   5 mẫu
+  - white-glass  -> green-glass :   4 mẫu
+  - green-glass  -> white-glass :   7 mẫu
+  - brown-glass  -> green-glass :   0 mẫu
+  - brown-glass  -> white-glass :   1 mẫu
+  - paper        -> cardboard   :   3 mẫu
+  - cardboard    -> paper       :   7 mẫu

@@ -255,13 +255,16 @@ def evaluate_test_and_generate_artifacts(data, best_params):
     print("="*70)
     print(df_eval.to_string(index=False))
     
-    # 4. Xuất Báo cáo phân loại chi tiết dạng văn bản
+    # 4. Xuất Báo cáo phân loại chi tiết dạng văn bản (cho cả 2 kịch bản)
+    rep_text_raw = get_classification_report(data["y_test"], y_test_pred_no_aug, class_names=class_names)
     rep_text_aug = get_classification_report(data["y_test"], y_test_pred_aug, class_names=class_names)
     print("\n" + "="*70)
     print("BÁO CÁO PHÂN LOẠI CHI TIẾT 12 LỚP (MÔ HÌNH CÓ AUGMENTATION TRÊN TEST):")
     print("="*70)
     print(rep_text_aug)
-    
+
+    with open("results/metrics/classification_report_raw.txt", "w", encoding="utf-8") as f:
+        f.write(rep_text_raw)
     with open("results/metrics/classification_report_aug.txt", "w", encoding="utf-8") as f:
         f.write(rep_text_aug)
         
@@ -301,10 +304,46 @@ def evaluate_test_and_generate_artifacts(data, best_params):
         normalize="true",
     )
     
-    # 8. Lưu mô hình tốt nhất bàn giao cho TV4
+    # 7.3 Xuất báo cáo phân tích các cặp lớp nhầm lẫn nhiều nhất (phục vụ báo cáo Đề tài 19)
+    pairs = []
+    for i in range(len(class_names)):
+        for j in range(len(class_names)):
+            if i != j and cm_counts[i, j] > 0:
+                pairs.append((int(cm_counts[i, j]), class_names[i], class_names[j]))
+    pairs.sort(reverse=True)
+    lines = [
+        "PHÂN TÍCH MA TRẬN NHẦM LẪN 12 LỚP RÁC THẢI (TẬP TEST ĐỘC LẬP)",
+        "=" * 68,
+        f"Tổng số mẫu Test: {int(cm_counts.sum())} | Dự đoán đúng: {int(np.trace(cm_counts))} | Nhầm lẫn: {int(cm_counts.sum() - np.trace(cm_counts))}",
+        "",
+        "TOP 15 CẶP LỚP NHẦM LẪN NHIỀU NHẤT (Nhãn thật -> Dự đoán nhầm):",
+    ]
+    for cnt, t_cls, p_cls in pairs[:15]:
+        lines.append(f"  - {t_cls:12s} -> {p_cls:12s}: {cnt:3d} mẫu")
+    lines.append("")
+    lines.append("CÁC NHÓM DỄ NHẦM TRỌNG TÂM THEO YÊU CẦU ĐỀ TÀI:")
+    focus_pairs = [
+        ("plastic", "metal"), ("metal", "plastic"),
+        ("plastic", "white-glass"), ("white-glass", "plastic"),
+        ("white-glass", "green-glass"), ("green-glass", "white-glass"),
+        ("brown-glass", "green-glass"), ("brown-glass", "white-glass"),
+        ("paper", "cardboard"), ("cardboard", "paper"),
+    ]
+    for a, b in focus_pairs:
+        if a in class_names and b in class_names:
+            ia, ib = class_names.index(a), class_names.index(b)
+            lines.append(f"  - {a:12s} -> {b:12s}: {int(cm_counts[ia, ib]):3d} mẫu")
+    analysis_path = "results/metrics/confusion_analysis.txt"
+    with open(analysis_path, "w", encoding="utf-8") as f:
+        f.write("\n".join(lines) + "\n")
+    print(f"[TV3-Evaluation] Đã lưu phân tích nhầm lẫn tại: {analysis_path}")
+
+    # 8. Lưu mô hình tốt nhất bàn giao cho TV4 (chọn kịch bản có Test Macro F1 cao hơn)
+    best_final_rf = rf_aug if metrics_aug["f1_macro"] >= metrics_no_aug["f1_macro"] else rf_no_aug
+    chosen_label = "Có Augmentation" if best_final_rf is rf_aug else "Không Augmentation"
     model_save_path = "models/random_forest_model.joblib"
-    save_model(rf_aug, model_save_path)
-    print(f"\n[TV3 Bàn giao] Đã lưu thành công model cuối tại: {model_save_path} (Sẵn sàng nạp vào app/app.py)")
+    save_model(best_final_rf, model_save_path)
+    print(f"\n[TV3 Bàn giao] Đã lưu model tốt nhất ({chosen_label}) tại: {model_save_path}")
     
     return {
         "df_eval": df_eval,

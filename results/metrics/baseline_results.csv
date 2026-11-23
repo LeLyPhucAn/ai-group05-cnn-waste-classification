@@ -1,0 +1,3 @@
+﻿Kịch bản,Số mẫu Train,Thời gian Train (s),Val Accuracy (%),Val Macro F1 (%),Test Accuracy (%),Test Macro F1 (%)
+Không Augmentation,10847,2.76,91.52,88.67,91.91,88.78
+Có Augmentation,32541,11.67,92.64,89.97,92.99,90.26

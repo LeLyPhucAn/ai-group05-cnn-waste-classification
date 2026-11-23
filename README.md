@@ -1,4 +1,4 @@
-﻿# Hệ thống Phân loại Rác thải Sinh hoạt qua Ảnh bằng CNN kết hợp Random Forest
+# Hệ thống Phân loại Rác thải Sinh hoạt qua Ảnh bằng CNN kết hợp Random Forest
 
 **Môn học:** Trí tuệ Nhân tạo / Deep Learning  
 **Đề tài:** Đề tài 19 (Mức Nâng cao)  
@@ -32,7 +32,22 @@ Dự án xây dựng hệ thống nhận diện và phân loại rác thải sin
 
 ---
 
-## 3. Phân công 5 Thành viên
+## 3. Kết quả Thực nghiệm Thực tế (Tập Test độc lập 2.325 ảnh)
+
+Mô hình tối ưu chọn trên Validation (`n_estimators=200`, `max_depth=25`, `min_samples_split=2`, `class_weight='balanced'`), lưu tại `models/random_forest_model.joblib` (36,72 MB):
+
+| Kịch bản Dữ liệu | Số mẫu Train | Thời gian Train | Test Accuracy | Macro Precision | Macro Recall | Macro F1-Score |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
+| **Không Augmentation (Baseline)** | 10.847 | 4.63s | **93.08%** | **90.92%** | **89.64%** | **90.20%** |
+| **Có Augmentation (Tăng cường)** | 32.541 | 17.16s | **94.06%** | **91.96%** | **91.21%** | **91.52%** |
+| **Mức cải thiện ($\Delta$)** | **+21.694** | +12.53s | **+0.98%** | **+1.04%** | **+1.57%** | **+1.32%** |
+
+* Kiểm thử trên 65 ảnh ngoài tập Kaggle (`demo_samples/`): đúng loại rác (12 lớp) **46/65 (70.77%)**, đúng nhóm xử lý (4 nhóm) **56/65 (86.15%)**.
+* Phân tích chi tiết các cặp lớp dễ nhầm lẫn (nhựa/thủy tinh/kim loại/giấy-carton) lưu tại `results/metrics/confusion_analysis.txt` và `results/confusion_matrix/`.
+
+---
+
+## 4. Phân công 5 Thành viên
 
 | Thành viên | Vai trò chính | Sản phẩm code & dữ liệu trong repo |
 | :--- | :--- | :--- |
@@ -44,7 +59,7 @@ Dự án xây dựng hệ thống nhận diện và phân loại rác thải sin
 
 ---
 
-## 4. Cấu trúc Thư mục Dự án
+## 5. Cấu trúc Thư mục Dự án
 
 ```plaintext
 ai-group05-cnn-waste-classification/
@@ -84,14 +99,14 @@ ai-group05-cnn-waste-classification/
 
 ---
 
-## 5. Hướng dẫn Cài đặt & Chạy Pipeline End-to-End
+## 6. Hướng dẫn Cài đặt & Chạy Pipeline End-to-End
 
-### 5.1. Cài đặt môi trường (Python 3.10 – 3.12)
+### 6.1. Cài đặt môi trường (Python 3.10 – 3.12)
 ```bash
 pip install -r requirements.txt
 ```
 
-### 5.2. Chuẩn bị dữ liệu & Thống kê (TV2)
+### 6.2. Chuẩn bị dữ liệu & Thống kê (TV2)
 ```bash
 # (Tuỳ chọn nếu chạy lại từ bộ ảnh gốc Kaggle)
 python src/prepare_data.py --raw-dir data/raw/garbage_classification --out-dir data
@@ -100,7 +115,7 @@ python src/prepare_data.py --raw-dir data/raw/garbage_classification --out-dir d
 python src/make_stats.py --split-dir data
 ```
 
-### 5.3. Trích xuất vector 1.280 chiều & Train baseline (TV1)
+### 6.3. Trích xuất vector 1.280 chiều & Train baseline (TV1)
 ```bash
 # Trích xuất 4 tập (Train gốc, Train + 2 bản biến đổi Augmentation, Val, Test) ra data/*.npy
 python src/extract_features.py --split-dir data --aug-copies 2
@@ -109,12 +124,13 @@ python src/extract_features.py --split-dir data --aug-copies 2
 python src/train_baseline.py
 ```
 
-### 5.4. Tối ưu siêu tham số & Xuất kết quả đánh giá (TV3)
+### 6.4. Tối ưu siêu tham số & Xuất kết quả đánh giá (TV3)
 ```bash
 python src/tune_and_evaluate.py
 ```
 
-### 5.5. Khởi chạy Ứng dụng Web Demo (TV4)
+### 6.5. Kiểm thử bộ ảnh mẫu & Khởi chạy Ứng dụng Web Demo (TV4 & TV5)
 ```bash
+python src/test_demo_samples.py
 streamlit run app/app.py
 ```

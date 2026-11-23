@@ -43,13 +43,14 @@ def train_random_forest(model, X_train, y_train):
     return model
 
 
-def save_model(model, filepath="models/random_forest_model.joblib"):
+def save_model(model, filepath="models/random_forest_model.joblib", compress=3):
     """
-    Lưu mô hình đã huấn luyện ra file .joblib.
+    Lưu mô hình đã huấn luyện ra file .joblib (nén mức 3 giúp giảm dung lượng gọn nhẹ cho GitHub).
     """
     os.makedirs(os.path.dirname(filepath), exist_ok=True)
-    joblib.dump(model, filepath)
-    print(f"[Random Forest] Đã lưu mô hình thành công tại: {filepath}")
+    joblib.dump(model, filepath, compress=compress)
+    size_mb = os.path.getsize(filepath) / (1024 * 1024)
+    print(f"[Random Forest] Đã lưu mô hình thành công tại: {filepath} ({size_mb:.2f} MB)")
 
 
 def load_model(filepath="models/random_forest_model.joblib"):
