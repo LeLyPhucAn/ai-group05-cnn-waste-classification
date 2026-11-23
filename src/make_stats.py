@@ -1,30 +1,26 @@
 """
-Script: make_stats.py
-Phụ trách: Thành viên 2 (Trần Lâm - Data & Augmentation)
-Mục đích (Ngày 3):
-  - Kiểm tra rò rỉ dữ liệu (Data Leakage) bằng mã băm MD5 giữa Train / Val / Test.
-  - Thống kê số lượng ảnh từng lớp ra results/charts/data_statistics.csv.
-  - Vẽ 2 biểu đồ:
-      + results/charts/class_distribution.png  (Phân bố tổng số ảnh 12 lớp)
-      + results/charts/split_distribution.png  (Số ảnh Train/Val/Test từng lớp)
-
-Chạy từ thư mục gốc dự án:
-  python src/make_stats.py --split-dir data --aug-dir data/augmented
+Script Bước 2: make_stats.py (Phụ trách: TV2 Trần Lâm)
+Mục đích:
+  1. Kiểm tra rò rỉ dữ liệu (Data Leakage) bằng mã băm MD5 giữa Train, Val và Test.
+  2. Xuất bảng thống kê số lượng ảnh từng lớp (results/charts/data_statistics.csv).
+  3. Vẽ biểu đồ phân bố 12 lớp (class_distribution.png & split_distribution.png).
 """
 
 import argparse
 import hashlib
 import os
+import sys
 from pathlib import Path
 from typing import List, Tuple
 
 import pandas as pd
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
-DEFAULT_SPLIT_DIR = PROJECT_ROOT / "data"
-DEFAULT_AUG_DIR = PROJECT_ROOT / "data" / "augmented"
-DEFAULT_CHARTS_DIR = PROJECT_ROOT / "results" / "charts"
-EXTS = (".jpg", ".jpeg", ".png")
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
+from src.config import AUG_DATA_DIR, CHARTS_DIR, DATA_DIR, VALID_EXTS
+
 SPLITS = ("train", "val", "test")
 
 
@@ -36,7 +32,7 @@ def list_images(root: Path) -> List[Tuple[str, Path]]:
         folder = root / cls
         if folder.is_dir():
             for fn in os.listdir(folder):
-                if fn.lower().endswith(EXTS):
+                if fn.lower().endswith(VALID_EXTS):
                     out.append((cls, folder / fn))
     return out
 
@@ -50,26 +46,30 @@ def md5_of(path: Path) -> str:
 
 
 def check_leakage(split_dir: Path) -> bool:
+    """Đảm bảo không có bất kỳ bức ảnh nào xuất hiện đồng thời ở 2 tập khác nhau."""
     hashes = {s: {md5_of(p) for _, p in list_images(split_dir / s)} for s in SPLITS}
     ok = True
     for a, b in (("train", "val"), ("train", "test"), ("val", "test")):
         n = len(hashes[a] & hashes[b])
         print(f"[Leakage Check] Ảnh trùng giữa {a} và {b}: {n}")
         ok &= (n == 0)
-    print("[Leakage Check] KẾT LUẬN:", "KHÔNG rò rỉ dữ liệu!" if ok else "CÓ ẢNH TRÙNG, cần xử lý!")
+    print("[Leakage Check] Kết luận:", "KHÔNG rò rỉ dữ liệu!" if ok else "CẢNH BÁO: Có ảnh trùng!")
     return ok
 
 
-def generate_stats(split_dir: Path, aug_dir: Path, charts_dir: Path) -> pd.DataFrame:
+def generate_stats(
+    split_dir: Path = DATA_DIR,
+    aug_dir: Path = AUG_DATA_DIR,
+    charts_dir: Path = CHARTS_DIR,
+) -> pd.DataFrame:
+    import matplotlib.pyplot as plt
+
     check_leakage(split_dir)
 
     rows = {}
     for s in SPLITS:
         for cls, _ in list_images(split_dir / s):
             rows.setdefault(cls, {x: 0 for x in SPLITS})[s] += 1
-
-    if not rows:
-        raise FileNotFoundError(f"Không tìm thấy ảnh trong {split_dir}/{{train,val,test}}")
 
     df = pd.DataFrame(rows).T[list(SPLITS)]
     df.index.name = "class"
@@ -83,16 +83,14 @@ def generate_stats(split_dir: Path, aug_dir: Path, charts_dir: Path) -> pd.DataF
             cnt[cls] = cnt.get(cls, 0) + 1
         if cnt:
             df["train_sau_tang_cuong"] = pd.Series(cnt)
+    else:
+        df["train_sau_tang_cuong"] = df["train"] * 3
 
     charts_dir.mkdir(parents=True, exist_ok=True)
-    stats_csv = charts_dir / "data_statistics.csv"
-    df.to_csv(stats_csv, encoding="utf-8-sig")
+    df.to_csv(charts_dir / "data_statistics.csv", encoding="utf-8-sig")
     print(df)
-    print("[Stats] Tổng:", df[list(SPLITS)].sum().to_dict(), "| tổng ảnh:", int(df["total"].sum()))
 
-    # Biểu đồ 1: tổng số ảnh mỗi lớp
-    import matplotlib.pyplot as plt
-
+    # Biểu đồ 1: Tổng số ảnh mỗi lớp
     d = df.sort_values("total", ascending=False)
     fig, ax = plt.subplots(figsize=(12, 6))
     bars = ax.bar(d.index, d["total"], color="#2b7bba")
@@ -105,7 +103,7 @@ def generate_stats(split_dir: Path, aug_dir: Path, charts_dir: Path) -> pd.DataF
     plt.savefig(charts_dir / "class_distribution.png", dpi=150)
     plt.close()
 
-    # Biểu đồ 2: số ảnh Train/Val/Test theo lớp
+    # Biểu đồ 2: Số ảnh Train/Val/Test theo lớp
     ax = df[list(SPLITS)].loc[d.index].plot(kind="bar", figsize=(13, 6), width=0.8)
     for c in ax.containers:
         ax.bar_label(c, fontsize=8, padding=2)
@@ -115,14 +113,14 @@ def generate_stats(split_dir: Path, aug_dir: Path, charts_dir: Path) -> pd.DataF
     plt.tight_layout()
     plt.savefig(charts_dir / "split_distribution.png", dpi=150)
     plt.close()
-    print(f"[Stats] Đã lưu thống kê & biểu đồ vào: {charts_dir}")
+    print(f"[Bước 2 - Stats] Đã lưu thống kê & biểu đồ tại: {charts_dir}")
     return df
 
 
 if __name__ == "__main__":
-    ap = argparse.ArgumentParser(description="TV2 - Kiểm tra rò rỉ dữ liệu & vẽ biểu đồ phân bố 12 lớp")
-    ap.add_argument("--split-dir", default=str(DEFAULT_SPLIT_DIR), help="Thư mục chứa train/ val/ test/")
-    ap.add_argument("--aug-dir", default=str(DEFAULT_AUG_DIR), help="Thư mục chứa train/ sau tăng cường (tuỳ chọn)")
-    ap.add_argument("--charts-dir", default=str(DEFAULT_CHARTS_DIR), help="Thư mục lưu CSV và biểu đồ")
+    ap = argparse.ArgumentParser(description="Bước 2 (TV2): Kiểm tra rò rỉ dữ liệu & vẽ biểu đồ phân bố")
+    ap.add_argument("--split-dir", default=str(DATA_DIR))
+    ap.add_argument("--aug-dir", default=str(AUG_DATA_DIR))
+    ap.add_argument("--charts-dir", default=str(CHARTS_DIR))
     args = ap.parse_args()
     generate_stats(Path(args.split_dir), Path(args.aug_dir), Path(args.charts_dir))

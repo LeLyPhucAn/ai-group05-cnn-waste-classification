@@ -1,64 +1,67 @@
 """
-Module: random_forest.py
+Module: random_forest.py (Tầng 3 - Mô hình Học máy | Phụ trách: TV1 Phúc An & TV3 Khương)
 Mục đích:
-  - Cung cấp lớp bọc huấn luyện mô hình Random Forest từ vector đặc trưng 1.280 chiều của MobileNetV2.
-  - Hỗ trợ nạp và lưu mô hình (.joblib).
-  - Phục vụ việc tái sử dụng giữa các thành viên TV1, TV3 và TV4.
+  Khởi tạo, huấn luyện, lưu và nạp mô hình RandomForestClassifier nhận đầu vào vector 1.280 chiều.
 """
 
 import os
+import sys
+from pathlib import Path
+from typing import Union
+
 import joblib
 from sklearn.ensemble import RandomForestClassifier
 
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
+from src.config import RF_MODEL_PATH, SEED
+
 
 def build_random_forest(
-    n_estimators=100,
+    n_estimators: int = 100,
     max_depth=None,
-    min_samples_split=2,
-    criterion="gini",
-    random_state=42,
-    n_jobs=-1,
-    **kwargs
-):
-    """
-    Khởi tạo mô hình RandomForestClassifier theo quy chuẩn kỹ thuật của đề tài.
-    """
-    model = RandomForestClassifier(
+    min_samples_split: int = 2,
+    criterion: str = "gini",
+    random_state: int = SEED,
+    n_jobs: int = -1,
+    **kwargs,
+) -> RandomForestClassifier:
+    """Khởi tạo mô hình RandomForestClassifier theo cấu hình chỉ định."""
+    return RandomForestClassifier(
         n_estimators=n_estimators,
         max_depth=max_depth,
         min_samples_split=min_samples_split,
         criterion=criterion,
         random_state=random_state,
         n_jobs=n_jobs,
-        **kwargs
+        **kwargs,
     )
-    return model
 
 
-def train_random_forest(model, X_train, y_train):
-    """
-    Huấn luyện mô hình Random Forest trên ma trận đặc trưng X_train và nhãn y_train.
-    """
+def train_random_forest(model: RandomForestClassifier, X_train, y_train) -> RandomForestClassifier:
+    """Huấn luyện Random Forest trên ma trận đặc trưng X_train (N, 1280) và nhãn y_train (N,)."""
     model.fit(X_train, y_train)
     return model
 
 
-def save_model(model, filepath="models/random_forest_model.joblib", compress=3):
-    """
-    Lưu mô hình đã huấn luyện ra file .joblib (nén mức 3 giúp giảm dung lượng gọn nhẹ cho GitHub).
-    """
-    os.makedirs(os.path.dirname(filepath), exist_ok=True)
+def save_model(
+    model: RandomForestClassifier,
+    filepath: Union[str, Path] = RF_MODEL_PATH,
+    compress: int = 3,
+) -> None:
+    """Lưu mô hình đã huấn luyện ra file .joblib (mặc định nén mức 3 gọn nhẹ)."""
+    filepath = Path(filepath)
+    filepath.parent.mkdir(parents=True, exist_ok=True)
     joblib.dump(model, filepath, compress=compress)
     size_mb = os.path.getsize(filepath) / (1024 * 1024)
-    print(f"[Random Forest] Đã lưu mô hình thành công tại: {filepath} ({size_mb:.2f} MB)")
+    print(f"[Random Forest] Đã lưu model: {filepath} ({size_mb:.2f} MB)")
 
 
-def load_model(filepath="models/random_forest_model.joblib"):
-    """
-    Nạp mô hình đã lưu từ file .joblib.
-    """
-    if not os.path.exists(filepath):
-        raise FileNotFoundError(f"Không tìm thấy file mô hình tại {filepath}")
-    model = joblib.load(filepath)
-    print(f"[Random Forest] Đã tải mô hình thành công từ: {filepath}")
-    return model
+def load_model(filepath: Union[str, Path] = RF_MODEL_PATH) -> RandomForestClassifier:
+    """Nạp mô hình Random Forest từ file .joblib."""
+    filepath = Path(filepath)
+    if not filepath.exists():
+        raise FileNotFoundError(f"Không tìm thấy file mô hình tại: {filepath}")
+    return joblib.load(filepath)

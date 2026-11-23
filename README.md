@@ -51,47 +51,41 @@ Mô hình tối ưu chọn trên Validation (`n_estimators=200`, `max_depth=25`,
 
 | Thành viên | Vai trò chính | Sản phẩm code & dữ liệu trong repo |
 | :--- | :--- | :--- |
-| **TV1 – Lê Lý Phúc An (Nhóm trưởng)** | Kiến trúc, trích xuất MobileNetV2, RF baseline & tổng hợp báo cáo | `src/mobilenet_feature_extractor.py`, `src/extract_features.py`, `src/random_forest.py`, `src/train_baseline.py` |
+| **TV1 – Lê Lý Phúc An (Nhóm trưởng)** | Kiến trúc nền móng, trích xuất MobileNetV2, RF baseline & tổng hợp báo cáo | `src/config.py`, `src/mobilenet_feature_extractor.py`, `src/extract_features.py`, `src/random_forest.py`, `src/train_baseline.py`, `src/predictor.py` |
 | **TV2 – Trần Lâm** | Dữ liệu 12 lớp, tiền xử lý & Data Augmentation | `src/prepare_data.py`, `src/preprocessing.py`, `src/augmentation.py`, `src/make_stats.py`, `data/data_statistics.csv`, `results/charts/*.png` |
 | **TV3 – Nguyễn Văn Khương** | Tối ưu siêu tham số RF, đánh giá Test & Confusion Matrix | `src/evaluation.py`, `src/tune_and_evaluate.py`, `models/random_forest_model.joblib`, `results/metrics/*`, `results/confusion_matrix/*` |
-| **TV4 – Quí** | Ứng dụng Web Demo Streamlit & tích hợp AI | `app/app.py`, `src/mapping.py`, `requirements.txt` |
-| **TV5 – Hoàng** | Chương 1, sơ đồ 2.1, thuật toán 2.2, kiểm thử ảnh thật & Chương 3 | `demo_samples/`, `demo_samples/real_test_cases.csv` & các phần báo cáo Word |
+| **TV4 – Quí** | Ứng dụng Web Demo Streamlit & ánh xạ nhãn | `app/app.py`, `src/mapping.py`, `src/predictor.py`, `requirements.txt` |
+| **TV5 – Hoàng** | Chương 1, sơ đồ 2.1, thuật toán 2.2, kiểm thử ảnh thật & Chương 3 | `demo_samples/`, `src/test_demo_samples.py`, `demo_samples/real_test_cases.csv` & các phần báo cáo Word |
 
 ---
 
-## 5. Cấu trúc Thư mục Dự án
+## 5. Kiến trúc Dự án (Chia 4 Tầng từ Nền lên Đỉnh)
 
 ```plaintext
 ai-group05-cnn-waste-classification/
-├── data/
-│   ├── README.md                        # Quy chuẩn chia tập 70/15/15 & mô tả 12 lớp
-│   ├── class_names.json                 # Thứ tự 12 nhãn lớp chuẩn hóa
-│   ├── data_statistics.csv              # Thống kê chuẩn 15.496 ảnh của TV2
-│   ├── train/                           # Ảnh tập Train (cục bộ, .gitignore)
-│   ├── val/                             # Ảnh tập Validation (cục bộ, .gitignore)
-│   └── test/                            # Ảnh tập Test (cục bộ, .gitignore)
-├── src/
-│   ├── prepare_data.py                  # (TV2) Lọc ảnh lỗi/trùng MD5 & chia 70/15/15
-│   ├── preprocessing.py                 # (TV2) Tiền xử lý chuẩn ImageNet (224x224 RGB)
-│   ├── augmentation.py                  # (TV2) Tăng cường dữ liệu tập Train & xuất demo
-│   ├── make_stats.py                    # (TV2) Kiểm tra rò rỉ MD5 & vẽ biểu đồ dữ liệu
-│   ├── mobilenet_feature_extractor.py   # (TV1) MobileNetV2 GAP xuất vector 1.280 chiều
-│   ├── extract_features.py              # (TV1) Trích xuất 4 tập ra data/*.npy
-│   ├── random_forest.py                 # (TV1/TV3) Khởi tạo, huấn luyện, lưu/nạp RF
-│   ├── train_baseline.py                # (TV1) Train RF baseline kiểm chứng pipeline
-│   ├── evaluation.py                    # (TV3) Metrics, Classification Report & Confusion Matrix
-│   ├── tune_and_evaluate.py             # (TV3) Tối ưu siêu tham số Validation & đánh giá Test
-│   ├── generate_dataset_vectors.py      # (Legacy/Mock) Sinh vector giả lập kiểm thử nhanh
-│   └── mapping.py                       # (TV4) Ánh xạ 12 lớp -> 4 nhóm xử lý & hướng dẫn
-├── models/
-│   └── random_forest_model.joblib       # Mô hình Random Forest tối ưu nhất
+├── src/                                    # PACKAGE LÕI
+│   ├── __init__.py
+│   ├── config.py                           # [Tầng 0 - Nền móng] Đường dẫn & hằng số kỹ thuật chung
+│   ├── preprocessing.py                    # [Tầng 1 - Dữ liệu] Ép RGB, Resize 224x224, Normalize ImageNet
+│   ├── augmentation.py                     # [Tầng 1 - Dữ liệu] Tăng cường dữ liệu tập Train & xuất demo
+│   ├── prepare_data.py                     # [Bước 1] Lọc ảnh hỏng, khử trùng MD5 & chia 70/15/15
+│   ├── make_stats.py                       # [Bước 2] Kiểm tra rò rỉ MD5 & vẽ biểu đồ phân bố 12 lớp
+│   ├── mobilenet_feature_extractor.py      # [Tầng 2 - CNN] MobileNetV2 GAP xuất vector 1.280 chiều
+│   ├── extract_features.py                 # [Bước 3] Trích xuất 4 tập ra data/X_*.npy, y_*.npy
+│   ├── random_forest.py                    # [Tầng 3 - ML] Khởi tạo, huấn luyện, lưu/nạp Random Forest
+│   ├── evaluation.py                       # [Tầng 3 - Đánh giá] Metrics, Classification Report & Confusion Matrix
+│   ├── train_baseline.py                   # [Bước 4A] Train RF baseline kiểm chứng nhanh pipeline
+│   ├── tune_and_evaluate.py                # [Bước 4B] Tối ưu siêu tham số trên Val & đánh giá Test
+│   ├── mapping.py                          # [Tầng 4 - Nghiệp vụ] Ánh xạ 12 lớp -> 4 nhóm xử lý & hướng dẫn
+│   ├── predictor.py                        # [Tầng 4 - Cầu nối] Lớp WastePredictor đóng gói luồng dự đoán 1 ảnh
+│   └── test_demo_samples.py                # [Bước 5] Kiểm thử hàng loạt 65 ảnh demo_samples/
 ├── app/
-│   └── app.py                           # Ứng dụng Web Demo Streamlit
-├── demo_samples/                        # Bộ ảnh kiểm thử (ảnh nặng .gitignore, giữ CSV)
-├── results/
-│   ├── charts/                          # Biểu đồ phân bố dữ liệu, Augmentation & F1
-│   ├── confusion_matrix/                # Ma trận nhầm lẫn 12 lớp
-│   └── metrics/                         # Bảng chỉ số CSV & classification report
+│   └── app.py                              # [Giao diện Demo] Ứng dụng Streamlit gọi WastePredictor
+├── data/                                   # class_names.json, data_statistics.csv, *.npy, train/, val/, test/
+├── models/
+│   └── random_forest_model.joblib          # Mô hình Random Forest tối ưu nhất (36,72 MB)
+├── demo_samples/                           # Bộ ảnh kiểm thử & real_test_cases.csv
+├── results/                                # charts/, confusion_matrix/, metrics/
 ├── requirements.txt
 ├── .gitignore
 └── README.md
@@ -99,38 +93,28 @@ ai-group05-cnn-waste-classification/
 
 ---
 
-## 6. Hướng dẫn Cài đặt & Chạy Pipeline End-to-End
+## 6. Hướng dẫn Chạy Dự án Theo Từng Bước (Bước 1 -> Bước 6)
 
-### 6.1. Cài đặt môi trường (Python 3.10 – 3.12)
 ```bash
+# Cài đặt thư viện (Python 3.10 - 3.12)
 pip install -r requirements.txt
-```
 
-### 6.2. Chuẩn bị dữ liệu & Thống kê (TV2)
-```bash
-# (Tuỳ chọn nếu chạy lại từ bộ ảnh gốc Kaggle)
-python src/prepare_data.py --raw-dir data/raw/garbage_classification --out-dir data
+# Bước 1 (TV2): Lọc ảnh hỏng/trùng MD5 và chia Stratified 70/15/15 (tuỳ chọn nếu chia lại từ ảnh gốc)
+python src/prepare_data.py
 
-# Kiểm tra rò rỉ MD5 & vẽ lại biểu đồ phân bố
-python src/make_stats.py --split-dir data
-```
+# Bước 2 (TV2): Kiểm tra rò rỉ dữ liệu & xuất biểu đồ phân bố
+python src/make_stats.py
 
-### 6.3. Trích xuất vector 1.280 chiều & Train baseline (TV1)
-```bash
-# Trích xuất 4 tập (Train gốc, Train + 2 bản biến đổi Augmentation, Val, Test) ra data/*.npy
-python src/extract_features.py --split-dir data --aug-copies 2
+# Bước 3 (TV1): Trích xuất vector MobileNetV2 1.280 chiều cho 4 tập ra data/*.npy
+python src/extract_features.py
 
-# Train Random Forest baseline kiểm chứng pipeline
+# Bước 4 (TV1 & TV3): Train baseline, tối ưu siêu tham số trên Validation & đánh giá Test
 python src/train_baseline.py
-```
-
-### 6.4. Tối ưu siêu tham số & Xuất kết quả đánh giá (TV3)
-```bash
 python src/tune_and_evaluate.py
-```
 
-### 6.5. Kiểm thử bộ ảnh mẫu & Khởi chạy Ứng dụng Web Demo (TV4 & TV5)
-```bash
+# Bước 5 (TV5): Kiểm thử mô hình trên 65 ảnh mẫu trong demo_samples/
 python src/test_demo_samples.py
+
+# Bước 6 (TV4): Khởi chạy giao diện Web Demo Streamlit
 streamlit run app/app.py
 ```
