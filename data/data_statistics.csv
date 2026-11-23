@@ -1,14 +1,14 @@
-class_id,class_name,vietnamese_name,waste_group,train_raw,train_aug,validation,test,total
-0,battery,Pin / Ắc quy,Rác nguy hại,661,1322,141,143,945
-1,biological,Rác hữu cơ,Rác hữu cơ,689,1378,147,149,985
-2,brown-glass,Thủy tinh nâu,Rác tái chế,424,848,91,92,607
-3,cardboard,Bìa carton,Rác tái chế,623,1246,133,135,891
-4,clothes,Quần áo cũ,Rác tái chế,3727,7454,798,800,5325
-5,green-glass,Thủy tinh xanh lá,Rác tái chế,440,880,94,95,629
-6,metal,Kim loại / Lon,Rác tái chế,538,1076,115,116,769
-7,paper,Giấy vụn,Rác tái chế,735,1470,157,158,1050
-8,plastic,Chai lọ nhựa,Rác tái chế,605,1210,129,131,865
-9,shoes,Giày dép cũ,Rác tái chế,1383,2766,296,298,1977
-10,trash,Rác khó tái chế,Rác còn lại,487,974,104,106,697
-11,white-glass,Thủy tinh trắng,Rác tái chế,542,1084,116,117,775
-Total,12 lớp rác thải,,15515 ảnh,10854,21708,2328,2333,15515
+﻿class_id,class_name,vietnamese_name,waste_group,train_raw,train_aug,validation,test,total,ty_le_phan_tram
+0,battery,Pin / Ắc quy,Rác nguy hại,661,1983,142,142,945,6.1
+1,biological,Rác hữu cơ,Rác hữu cơ,689,2067,148,148,985,6.36
+2,brown-glass,Thủy tinh nâu,Rác tái chế,425,1275,91,91,607,3.92
+3,cardboard,Bìa carton,Rác tái chế,624,1872,133,134,891,5.75
+4,clothes,Quần áo cũ,Rác tái chế,3727,11181,798,799,5324,34.36
+5,green-glass,Thủy tinh xanh lá,Rác tái chế,430,1290,92,92,614,3.96
+6,metal,Kim loại / Lon,Rác tái chế,538,1614,116,115,769,4.96
+7,paper,Giấy vụn,Rác tái chế,735,2205,157,158,1050,6.78
+8,plastic,Chai lọ nhựa,Rác tái chế,606,1818,130,129,865,5.58
+9,shoes,Giày dép cũ,Rác tái chế,1384,4152,296,297,1977,12.76
+10,trash,Rác khó tái chế,Rác còn lại,488,1464,105,104,697,4.5
+11,white-glass,Thủy tinh trắng,Rác tái chế,540,1620,116,116,772,4.98
+Total,12 lớp rác thải,,,10847,32541,2324,2325,15496,100.00

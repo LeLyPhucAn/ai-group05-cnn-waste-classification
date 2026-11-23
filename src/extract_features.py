@@ -65,7 +65,7 @@ def seed_everything(seed):
 
 def main():
     ap = argparse.ArgumentParser(description="TV1 - Trích xuất vector MobileNetV2 ra file .npy")
-    ap.add_argument("--split-dir", required=True, help="Thư mục chứa train/ val/ test/ (bộ chia 70/15/15 của TV2)")
+    ap.add_argument("--split-dir", default=os.path.join(PROJECT_ROOT, "data"), help="Thư mục chứa train/ val/ test/ (mặc định: data/)")
     ap.add_argument("--aug-dir", default=None, help="(Tuỳ chọn) Thư mục chứa train/ đã tăng cường của TV2")
     ap.add_argument("--aug-copies", type=int, default=2, help="Số bản biến đổi/ảnh khi tự sinh augmentation (1-2)")
     ap.add_argument("--out-dir", default=os.path.join(PROJECT_ROOT, "data"), help="Nơi lưu file .npy")
