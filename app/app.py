@@ -16,7 +16,6 @@ from pathlib import Path
 
 import pandas as pd
 import streamlit as st
-import streamlit.components.v1 as components
 from PIL import Image, UnidentifiedImageError
 
 APP_DIR = Path(__file__).resolve().parent
@@ -48,7 +47,7 @@ def inject_assets() -> None:
     css = load_text(APP_DIR / "static" / "style.css")
     js = load_text(APP_DIR / "static" / "script.js")
     st.markdown(f"<style>{css}</style>", unsafe_allow_html=True)
-    components.html(f"<script>{js}</script>", height=0)
+    st.iframe(f"<script>{js}</script>", height=1)
 
 
 @st.cache_resource(show_spinner="Đang tải mô hình AI...")

@@ -42,12 +42,8 @@ desktop.ini
 *.log
 *.npy
 *.npz
-doc_content.txt
 bad_images.txt
 duplicate_images.txt
 
 # Report files (gửi qua Zalo theo quy ước nhóm)
 report/
-
-src/generate_report_docx.py
-src/generate_vandap_docx.py

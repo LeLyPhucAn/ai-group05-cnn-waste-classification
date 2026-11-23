@@ -6,7 +6,6 @@ Mục đích:
   - Chạy cố định ở chế độ eval() và torch.no_grad(), dùng chung transform với src/preprocessing.py.
 """
 
-import os
 import sys
 import time
 from pathlib import Path
