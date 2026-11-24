@@ -32,13 +32,13 @@ Mô hình tối ưu chọn trên tập Validation (`n_estimators=200`, `max_dept
 
 ## 3. Phân công Thành viên
 
-| Thành viên | Vai trò chính | Sản phẩm cốt lõi |
-| :--- | :--- | :--- |
-| **TV1 – Lê Lý Phúc An (Nhóm trưởng)** | Kiến trúc hệ thống, MobileNetV2, RF baseline & tổng hợp báo cáo | `src/config.py`, `src/mobilenet_feature_extractor.py`, `src/extract_features.py`, `src/random_forest.py`, `src/train_baseline.py`, `src/predictor.py` |
-| **TV2 – Trần Lâm** | Dữ liệu 12 lớp, tiền xử lý & Data Augmentation | `src/prepare_data.py`, `src/preprocessing.py`, `src/augmentation.py`, `src/make_stats.py`, `data/data_statistics.csv`, `results/charts/*.png` |
-| **TV3 – Nguyễn Văn Khương** | Tối ưu siêu tham số RF, đánh giá Test & Confusion Matrix | `src/evaluation.py`, `src/tune_and_evaluate.py`, `models/random_forest_model.joblib`, `results/metrics/*`, `results/confusion_matrix/*` |
-| **TV4 – Quí** | Ứng dụng Web Demo Streamlit & ánh xạ nhãn | `app/app.py`, `app/templates/*`, `app/static/*`, `src/mapping.py`, `requirements.txt` |
-| **TV5 – Hoàng** | Chương 1, sơ đồ 2.1, thuật toán 2.2, kiểm thử ảnh mẫu & Chương 3 | `demo_samples/`, `src/test_demo_samples.py`, `demo_samples/real_test_cases.csv` & tài liệu báo cáo |
+| Họ và tên | MSSV | Công việc |
+| :--- | :---: | :--- |
+| **Lê Lý Phúc An**<br>*(Nhóm trưởng)* | `080206002048` | - Thiết kế kiến trúc hệ thống, quản lý kho mã nguồn GitHub và điều phối nhóm.<br>- Lập trình trích xuất đặc trưng MobileNetV2, xuất vector đặc trưng (`.npy`) và huấn luyện mô hình Random Forest gốc.<br>- Kiểm thử tích hợp, tổng hợp, đối chiếu số liệu và hoàn thiện báo cáo cuối. |
+| **Nguyễn Phúc Hoàng** | `049206002481` | - Viết phần Mở đầu, Chương 1, mục 2.1–2.2 (sơ đồ quy trình, lý thuyết, mã giả), mục 2.5 (giao diện), Chương 3 và Tài liệu tham khảo.<br>- Thu thập ảnh rác thật, kiểm thử ứng dụng thực tế, chụp ảnh minh họa demo. |
+| **Nguyễn Văn Khương** | `066206009437` | - Xây dựng module đánh giá (`evaluation.py`) và tối ưu siêu tham số cho mô hình Random Forest.<br>- Thực nghiệm so sánh có/không Data Augmentation trên tập Test, xuất chỉ số đánh giá và vẽ Confusion Matrix.<br>- Viết mục Quá trình tối ưu và Kết quả đánh giá trong Chương 2. |
+| **Trần Sơn Lâm** | `080206007896` | - Thu thập, làm sạch và chia bộ dữ liệu 12 lớp theo tỷ lệ 70/15/15.<br>- Lập trình tiền xử lý ảnh (`preprocessing.py`), tăng cường dữ liệu (`augmentation.py`) và thống kê, vẽ biểu đồ dữ liệu.<br>- Viết mục Dữ liệu, Tiền xử lý và Data Augmentation trong Chương 2. |
+| **Đào Minh Quí** | `051207019415` | - Xây dựng ứng dụng demo Streamlit (`app.py`) và module ánh xạ 12 lớp rác sang nhóm xử lý (`mapping.py`).<br>- Tích hợp mô hình MobileNetV2 + Random Forest vào ứng dụng, sửa lỗi và đóng gói thư viện (`requirements.txt`).<br>- Viết mục Triển khai ứng dụng và sơ đồ luồng xử lý kỹ thuật trong Chương 2. |
 
 ---
 
