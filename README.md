@@ -1,6 +1,6 @@
 # Hệ thống Phân loại Rác thải Sinh hoạt qua Ảnh bằng CNN kết hợp Random Forest
 
-**Môn học:** Trí tuệ Nhân tạo | **Đề tài:** Đề tài 19 (Mức Nâng cao)  
+**Môn học:** Trí tuệ Nhân tạo | **Đề tài:** Đề tài 19 
 **Giảng viên hướng dẫn:** Thầy Bùi Trọng Hiếu | **Nhóm thực hiện:** Nhóm 05  
 
 ---
@@ -77,23 +77,73 @@ ai-group05-cnn-waste-classification/
 
 ---
 
-## 5. Hướng dẫn Cài đặt & Chạy
+## 5. Hướng dẫn Cài đặt & Chạy Từng bước
 
-```bash
-# 1. Cài đặt thư viện (Python 3.10 - 3.12)
-pip install -r requirements.txt
+> **Yêu cầu:** Python **3.10 – 3.12** (khuyến nghị **Python 3.12** để tương thích ổn định với PyTorch).  
+> Luôn gọi qua `-m pip` / `-m streamlit` để tránh lỗi `not recognized` hoặc nhầm phiên bản khi máy cài nhiều bản Python.
 
-# 2. Chạy ứng dụng Web Demo (http://localhost:8501)
-streamlit run app/app.py
+### Bước 1: Kiểm tra phiên bản Python & Cài đặt thư viện
+
+#### Cách 1 (Khuyên dùng – tạo môi trường ảo `.venv`, chạy chuẩn trên mọi máy cài nhiều Python)
+```powershell
+# 1. Xem các bản Python đang cài trên Windows (chọn 3.12 hoặc 3.11 / 3.10)
+py -0p
+
+# 2. Tạo môi trường ảo bằng Python 3.12
+py -3.12 -m venv .venv
+
+# 3. Kích hoạt môi trường ảo (Windows PowerShell)
+.venv\Scripts\Activate.ps1
+# (Nếu dùng CMD: .venv\Scripts\activate.bat | macOS/Linux: source .venv/bin/activate)
+
+# 4. Cài đặt toàn bộ thư viện
+python -m pip install -r requirements.txt
 ```
 
-### Chạy lại quy trình huấn luyện từng bước (nếu cần train lại)
-```bash
-python src/prepare_data.py        # Bước 1: Lọc ảnh lỗi/trùng và chia 70/15/15 (từ ảnh gốc)
-python src/make_stats.py          # Bước 2: Kiểm tra rò rỉ dữ liệu & vẽ biểu đồ phân bố
-python src/extract_features.py    # Bước 3: Trích xuất vector MobileNetV2 1.280d ra data/*.npy
-python src/train_baseline.py      # Bước 4A: Train Random Forest baseline
-python src/tune_and_evaluate.py   # Bước 4B: Tối ưu Val, chấm Test & lưu random_forest_model.joblib
-python src/test_demo_samples.py   # Bước 5: Kiểm thử hàng loạt ảnh trong demo_samples/
-streamlit run app/app.py          # Bước 6: Mở giao diện Web Demo
+#### Cách 2 (Chạy trực tiếp không cần `.venv` trên Windows có nhiều bản Python)
+```powershell
+# Chỉ đích danh Python 3.12 để cài thư viện (thay 3.12 bằng 3.11/3.10 nếu máy dùng bản đó)
+py -3.12 -m pip install -r requirements.txt
+```
+*(Nếu máy chỉ cài 1 bản Python duy nhất, thay `py -3.12` bằng `python`.)*
+
+---
+
+### Bước 2: Chạy ứng dụng Web Demo (dùng mô hình đã huấn luyện sẵn)
+```powershell
+# Nếu đã kích hoạt .venv (hoặc máy chỉ có 1 bản Python)
+python -m streamlit run app/app.py
+
+# Nếu chạy trực tiếp trên Windows cài nhiều bản Python
+py -3.12 -m streamlit run app/app.py
+```
+Mở trình duyệt tại **`http://localhost:8501`**. Nhấn `Ctrl + C` trong terminal để tắt.
+
+---
+
+### Bước 3: Chạy lại quy trình Huấn luyện & Thực nghiệm từng bước (tuỳ chọn)
+
+*(Thay `py -3.12` bằng `python` nếu bạn đang ở trong `.venv` hoặc máy chỉ có 1 bản Python.)*
+
+```powershell
+# Bước 3.1 (Tuỳ chọn): Lọc ảnh hỏng/trùng MD5 và chia Stratified 70/15/15 từ ảnh Kaggle gốc
+py -3.12 src/prepare_data.py --raw-dir data/raw/garbage_classification --out-dir data
+
+# Bước 3.2: Kiểm tra rò rỉ dữ liệu MD5 & xuất biểu đồ phân bố 12 lớp
+py -3.12 src/make_stats.py
+
+# Bước 3.3: Trích xuất vector MobileNetV2 (1.280 chiều) cho 4 tập ra data/*.npy (~15 phút trên CPU)
+py -3.12 src/extract_features.py --split-dir data --aug-copies 2 --batch-size 64
+
+# Bước 3.4A: Train nhanh Random Forest baseline kiểm chứng 2 kịch bản (~15 giây)
+py -3.12 src/train_baseline.py
+
+# Bước 3.4B: Tối ưu siêu tham số trên Validation, đánh giá Test, vẽ Confusion Matrix & lưu model cuối (~1-2 phút)
+py -3.12 src/tune_and_evaluate.py
+
+# Bước 3.5: Chấm điểm tự động bộ ảnh mẫu demo_samples/
+py -3.12 src/test_demo_samples.py
+
+# Bước 3.6: Mở lại ứng dụng Web Demo với mô hình vừa train
+py -3.12 -m streamlit run app/app.py
 ```
