@@ -1,14 +1,66 @@
-STT,Ten_File,Lop_Thuc_Te,Nhom_Xu_Ly,Dieu_Kien_Chup,Du_Doan_Lop,Du_Doan_Nhom,Do_Tin_Cay_Phan_Tram,Ket_Qua_Dung_Sai,Ghi_Chu_Loi
-1,nhua_01.jpg,plastic,Rác tái chế,Nền trắng đủ sáng,plastic,Rác tái chế,98.50,Đúng,Chai nhựa PET trong suốt
-2,nhua_02.jpg,plastic,Rác tái chế,Nền bừa bộn thiếu sáng,white-glass,Rác tái chế,58.20,Sai,Nhầm nhựa trong sang thủy tinh trắng do góc phản chiếu
-3,kimloai_01.jpg,metal,Rác tái chế,Nền bàn gỗ,metal,Rác tái chế,96.30,Đúng,Vỏ lon Coca dẹp
-4,kimloai_02.jpg,metal,Rác tái chế,Nền gạch mờ,metal,Rác tái chế,92.10,Đúng,Hộp cá hộp thiếc
-5,thuytinh_01.jpg,white-glass,Rác tái chế,Nền trong nhà,white-glass,Rác tái chế,94.80,Đúng,Chai nước thủy tinh trong
-6,thuytinh_02.jpg,green-glass,Rác tái chế,Đủ sáng ngoài trời,green-glass,Rác tái chế,95.40,Đúng,Chai bia xanh lá
-7,carton_01.jpg,cardboard,Rác tái chế,Nền sàn nhà,cardboard,Rác tái chế,99.10,Đúng,Thùng mì tôm gấp gọn
-8,giay_01.jpg,paper,Rác tái chế,Nền bàn học,paper,Rác tái chế,97.20,Đúng,Tập tài liệu A4 cũ
-9,pin_01.jpg,battery,Rác nguy hại,Chụp cận cảnh,battery,Rác nguy hại,99.80,Đúng,Pin tiểu AA Panasonic
-10,huuco_01.jpg,biological,Rác hữu cơ,Nền đĩa sứ,biological,Rác hữu cơ,98.90,Đúng,Vỏ chuối chín
-11,quanao_01.jpg,clothes,Rác tái chế,Nền giường,clothes,Rác tái chế,99.60,Đúng,Áo phông cotton cũ
-12,giaydep_01.jpg,shoes,Rác tái chế,Nền cửa nhà,shoes,Rác tái chế,97.80,Đúng,Giày thể thao cũ
-13,racconlai_01.jpg,trash,Rác còn lại,Nền đất,trash,Rác còn lại,91.20,Đúng,Túi nilon rách dơ
+﻿STT,Ten_File,Lop_Thuc_Te,Nhom_Xu_Ly,Dieu_Kien_Chup,Du_Doan_Lop,Du_Doan_Nhom,Do_Tin_Cay_Phan_Tram,Ket_Qua_Dung_Sai,Ghi_Chu
+1,battery/battery_01.png,battery,Rác nguy hại,Chưa ghi chú,battery,Rác nguy hại,27.10,Đúng,"Gốc: Pin/Ảnh ChatGPT 15_01_13 21 thg 11, 2026-1.png (Ảnh AI tạo sinh)"
+2,battery/battery_02.png,battery,Rác nguy hại,Chưa ghi chú,battery,Rác nguy hại,29.11,Đúng,"Gốc: Pin/Ảnh ChatGPT 15_01_15 21 thg 11, 2026-2.png (Ảnh AI tạo sinh)"
+3,battery/battery_03.png,battery,Rác nguy hại,Chưa ghi chú,brown-glass,Rác tái chế,25.22,Sai,"Gốc: Pin/Ảnh ChatGPT 15_01_16 21 thg 11, 2026-3.png (Ảnh AI tạo sinh)"
+4,battery/battery_04.png,battery,Rác nguy hại,Chưa ghi chú,trash,Rác còn lại (Khó tái chế),12.00,Sai,"Gốc: Pin/Ảnh ChatGPT 15_01_17 21 thg 11, 2026-4.png (Ảnh AI tạo sinh)"
+5,battery/battery_05.png,battery,Rác nguy hại,Chưa ghi chú,plastic,Rác tái chế,20.03,Sai,"Gốc: Pin/Ảnh ChatGPT 15_01_18 21 thg 11, 2026-5.png (Ảnh AI tạo sinh)"
+6,battery/battery_06.png,battery,Rác nguy hại,Chưa ghi chú,plastic,Rác tái chế,13.50,Sai,"Gốc: Pin/Ảnh ChatGPT 15_01_20 21 thg 11, 2026-6.png (Ảnh AI tạo sinh)"
+7,battery/battery_07.png,battery,Rác nguy hại,Chưa ghi chú,cardboard,Rác tái chế,16.17,Sai,"Gốc: Pin/Ảnh ChatGPT 15_01_21 21 thg 11, 2026-7.png (Ảnh AI tạo sinh)"
+8,battery/battery_08.png,battery,Rác nguy hại,Chưa ghi chú,metal,Rác tái chế,18.14,Sai,"Gốc: Pin/Ảnh ChatGPT 15_01_22 21 thg 11, 2026-8.png (Ảnh AI tạo sinh)"
+9,battery/battery_09.png,battery,Rác nguy hại,Chưa ghi chú,brown-glass,Rác tái chế,40.00,Sai,"Gốc: Pin/Ảnh ChatGPT 15_01_24 21 thg 11, 2026-9.png (Ảnh AI tạo sinh)"
+10,battery/battery_10.png,battery,Rác nguy hại,Chưa ghi chú,brown-glass,Rác tái chế,24.11,Sai,"Gốc: Pin/Ảnh ChatGPT 15_01_25 21 thg 11, 2026-10.png (Ảnh AI tạo sinh)"
+11,biological/biological_01.png,biological,Rác hữu cơ,Chưa ghi chú,biological,Rác hữu cơ,35.50,Đúng,"Gốc: Vỏ trái cây/Ảnh ChatGPT 15_04_50 21 thg 11, 2026-1.png (Ảnh AI tạo sinh)"
+12,biological/biological_02.png,biological,Rác hữu cơ,Chưa ghi chú,biological,Rác hữu cơ,30.27,Đúng,"Gốc: Vỏ trái cây/Ảnh ChatGPT 15_04_51 21 thg 11, 2026-2.png (Ảnh AI tạo sinh)"
+13,biological/biological_03.png,biological,Rác hữu cơ,Chưa ghi chú,biological,Rác hữu cơ,41.04,Đúng,"Gốc: Vỏ trái cây/Ảnh ChatGPT 15_04_54 21 thg 11, 2026-3.png (Ảnh AI tạo sinh)"
+14,biological/biological_04.png,biological,Rác hữu cơ,Chưa ghi chú,paper,Rác tái chế,18.50,Sai,"Gốc: Vỏ trái cây/Ảnh ChatGPT 15_04_55 21 thg 11, 2026-4.png (Ảnh AI tạo sinh)"
+15,biological/biological_05.png,biological,Rác hữu cơ,Chưa ghi chú,biological,Rác hữu cơ,24.50,Đúng,"Gốc: Vỏ trái cây/Ảnh ChatGPT 15_04_56 21 thg 11, 2026-5.png (Ảnh AI tạo sinh)"
+16,biological/biological_06.png,biological,Rác hữu cơ,Chưa ghi chú,biological,Rác hữu cơ,22.00,Đúng,"Gốc: Vỏ trái cây/Ảnh ChatGPT 15_04_57 21 thg 11, 2026-6.png (Ảnh AI tạo sinh)"
+17,biological/biological_07.png,biological,Rác hữu cơ,Chưa ghi chú,biological,Rác hữu cơ,21.01,Đúng,"Gốc: Vỏ trái cây/Ảnh ChatGPT 15_04_59 21 thg 11, 2026-7.png (Ảnh AI tạo sinh)"
+18,biological/biological_08.png,biological,Rác hữu cơ,Chưa ghi chú,biological,Rác hữu cơ,24.50,Đúng,"Gốc: Vỏ trái cây/Ảnh ChatGPT 15_05_00 21 thg 11, 2026-8.png (Ảnh AI tạo sinh)"
+19,biological/biological_09.png,biological,Rác hữu cơ,Chưa ghi chú,biological,Rác hữu cơ,30.50,Đúng,"Gốc: Vỏ trái cây/Ảnh ChatGPT 15_05_01 21 thg 11, 2026-9.png (Ảnh AI tạo sinh)"
+20,biological/biological_10.png,biological,Rác hữu cơ,Chưa ghi chú,biological,Rác hữu cơ,34.48,Đúng,"Gốc: Vỏ trái cây/Ảnh ChatGPT 15_05_03 21 thg 11, 2026-10.png (Ảnh AI tạo sinh)"
+21,cardboard/cardboard_01.png,cardboard,Rác tái chế,Chưa ghi chú,cardboard,Rác tái chế,14.00,Đúng,Gốc: Giấy_carton/Bàn làm việc bừa bộn với bìa carton trung tâm-4.png
+22,cardboard/cardboard_02.png,cardboard,Rác tái chế,Chưa ghi chú,cardboard,Rác tái chế,42.47,Đúng,Gốc: Giấy_carton/Bàn làm việc bừa bộn với bìa carton-14.png
+23,cardboard/cardboard_03.png,cardboard,Rác tái chế,Chưa ghi chú,cardboard,Rác tái chế,33.00,Đúng,Gốc: Giấy_carton/Hai Thùng Carton Trong Góc Tối-15.png
+24,cardboard/cardboard_04.png,cardboard,Rác tái chế,Chưa ghi chú,cardboard,Rác tái chế,37.00,Đúng,Gốc: Giấy_carton/Hai Tấm Bìa Carton Song Song-12.png
+25,cardboard/cardboard_05.png,cardboard,Rác tái chế,Chưa ghi chú,cardboard,Rác tái chế,91.45,Đúng,Gốc: Giấy_carton/Hai hộp carton trên bàn gỗ-10.png
+26,cardboard/cardboard_06.png,cardboard,Rác tái chế,Chưa ghi chú,cardboard,Rác tái chế,32.00,Đúng,Gốc: Giấy_carton/Hai thùng carton trên bàn bừa bộn-13.png
+27,cardboard/cardboard_07.png,cardboard,Rác tái chế,Chưa ghi chú,cardboard,Rác tái chế,46.99,Đúng,Gốc: Giấy_carton/Miếng bìa carton trên bàn gỗ-16.png
+28,cardboard/cardboard_08.png,cardboard,Rác tái chế,Chưa ghi chú,cardboard,Rác tái chế,64.51,Đúng,Gốc: Giấy_carton/Tấm bìa carton cũ trên nền gạch-7.png
+29,cardboard/cardboard_09.png,cardboard,Rác tái chế,Chưa ghi chú,cardboard,Rác tái chế,55.98,Đúng,Gốc: Giấy_carton/Tấm bìa carton cũ trên nền gạch-8.png
+30,cardboard/cardboard_10.png,cardboard,Rác tái chế,Chưa ghi chú,cardboard,Rác tái chế,68.47,Đúng,Gốc: Giấy_carton/Tấm bìa carton trên mặt bàn gỗ-3.png
+31,cardboard/cardboard_11.png,cardboard,Rác tái chế,Chưa ghi chú,cardboard,Rác tái chế,56.98,Đúng,Gốc: Giấy_carton/Tấm bìa cũ trên nền bê tông mờ tối-9.png
+32,metal/metal_01.png,metal,Rác tái chế,Chưa ghi chú,metal,Rác tái chế,20.34,Đúng,"Gốc: Lon nước/Ảnh ChatGPT 15_44_43 21 thg 11, 2026-1.png (Ảnh AI tạo sinh)"
+33,metal/metal_02.png,metal,Rác tái chế,Chưa ghi chú,metal,Rác tái chế,30.15,Đúng,"Gốc: Lon nước/Ảnh ChatGPT 15_44_45 21 thg 11, 2026-2.png (Ảnh AI tạo sinh)"
+34,metal/metal_03.png,metal,Rác tái chế,Chưa ghi chú,green-glass,Rác tái chế,26.45,Đúng nhóm,"Gốc: Lon nước/Ảnh ChatGPT 15_44_46 21 thg 11, 2026-3.png (Ảnh AI tạo sinh)"
+35,metal/metal_04.png,metal,Rác tái chế,Chưa ghi chú,plastic,Rác tái chế,19.50,Đúng nhóm,"Gốc: Lon nước/Ảnh ChatGPT 15_44_48 21 thg 11, 2026-4.png (Ảnh AI tạo sinh)"
+36,metal/metal_05.png,metal,Rác tái chế,Chưa ghi chú,metal,Rác tái chế,21.99,Đúng,"Gốc: Lon nước/Ảnh ChatGPT 15_44_49 21 thg 11, 2026-5.png (Ảnh AI tạo sinh)"
+37,metal/metal_06.png,metal,Rác tái chế,Chưa ghi chú,metal,Rác tái chế,19.80,Đúng,"Gốc: Lon nước/Ảnh ChatGPT 15_44_50 21 thg 11, 2026-6.png (Ảnh AI tạo sinh)"
+38,metal/metal_07.png,metal,Rác tái chế,Chưa ghi chú,metal,Rác tái chế,22.50,Đúng,"Gốc: Lon nước/Ảnh ChatGPT 15_44_52 21 thg 11, 2026-7.png (Ảnh AI tạo sinh)"
+39,metal/metal_08.png,metal,Rác tái chế,Chưa ghi chú,metal,Rác tái chế,26.66,Đúng,"Gốc: Lon nước/Ảnh ChatGPT 15_44_53 21 thg 11, 2026-8.png (Ảnh AI tạo sinh)"
+40,metal/metal_09.png,metal,Rác tái chế,Chưa ghi chú,plastic,Rác tái chế,27.50,Đúng nhóm,"Gốc: Lon nước/Ảnh ChatGPT 15_44_55 21 thg 11, 2026-9.png (Ảnh AI tạo sinh)"
+41,metal/metal_10.png,metal,Rác tái chế,Chưa ghi chú,plastic,Rác tái chế,29.01,Đúng nhóm,"Gốc: Lon nước/Ảnh ChatGPT 15_44_56 21 thg 11, 2026-10.png (Ảnh AI tạo sinh)"
+42,plastic/plastic_01.png,plastic,Rác tái chế,Chưa ghi chú,plastic,Rác tái chế,42.84,Đúng,"Gốc: Chai nhựa/Ảnh ChatGPT 14_32_24 21 thg 11, 2026-1.png (Ảnh AI tạo sinh)"
+43,plastic/plastic_02.png,plastic,Rác tái chế,Chưa ghi chú,plastic,Rác tái chế,58.50,Đúng,"Gốc: Chai nhựa/Ảnh ChatGPT 14_32_25 21 thg 11, 2026-2.png (Ảnh AI tạo sinh)"
+44,plastic/plastic_03.png,plastic,Rác tái chế,Chưa ghi chú,plastic,Rác tái chế,38.00,Đúng,"Gốc: Chai nhựa/Ảnh ChatGPT 14_32_26 21 thg 11, 2026-3.png (Ảnh AI tạo sinh)"
+45,plastic/plastic_04.png,plastic,Rác tái chế,Chưa ghi chú,plastic,Rác tái chế,32.37,Đúng,"Gốc: Chai nhựa/Ảnh ChatGPT 14_32_27 21 thg 11, 2026-4.png (Ảnh AI tạo sinh)"
+46,plastic/plastic_05.png,plastic,Rác tái chế,Chưa ghi chú,plastic,Rác tái chế,29.50,Đúng,"Gốc: Chai nhựa/Ảnh ChatGPT 14_32_28 21 thg 11, 2026-5.png (Ảnh AI tạo sinh)"
+47,plastic/plastic_06.png,plastic,Rác tái chế,Chưa ghi chú,plastic,Rác tái chế,23.50,Đúng,"Gốc: Chai nhựa/Ảnh ChatGPT 14_32_29 21 thg 11, 2026-6.png (Ảnh AI tạo sinh)"
+48,plastic/plastic_07.png,plastic,Rác tái chế,Chưa ghi chú,cardboard,Rác tái chế,42.99,Đúng nhóm,"Gốc: Chai nhựa/Ảnh ChatGPT 14_32_30 21 thg 11, 2026-7.png (Ảnh AI tạo sinh)"
+49,plastic/plastic_08.png,plastic,Rác tái chế,Chưa ghi chú,plastic,Rác tái chế,29.00,Đúng,"Gốc: Chai nhựa/Ảnh ChatGPT 14_32_30 21 thg 11, 2026-8.png (Ảnh AI tạo sinh)"
+50,plastic/plastic_09.png,plastic,Rác tái chế,Chưa ghi chú,plastic,Rác tái chế,42.50,Đúng,"Gốc: Chai nhựa/Ảnh ChatGPT 14_32_31 21 thg 11, 2026-9.png (Ảnh AI tạo sinh)"
+51,plastic/plastic_10.png,plastic,Rác tái chế,Chưa ghi chú,plastic,Rác tái chế,27.50,Đúng,"Gốc: Chai nhựa/Ảnh ChatGPT 14_32_33 21 thg 11, 2026-10.png (Ảnh AI tạo sinh)"
+52,white-glass/white-glass_01.png,white-glass,Rác tái chế,Chưa ghi chú,plastic,Rác tái chế,30.87,Đúng nhóm,Gốc: Chai thủy tinh/392d277b-cf3d-420e-b184-5e3bab11db3c.png
+53,white-glass/white-glass_02.png,white-glass,Rác tái chế,Chưa ghi chú,plastic,Rác tái chế,28.00,Đúng nhóm,Gốc: Chai thủy tinh/Chai thủy tinh giữa đất đá-6.png
+54,white-glass/white-glass_03.png,white-glass,Rác tái chế,Chưa ghi chú,plastic,Rác tái chế,17.50,Đúng nhóm,Gốc: Chai thủy tinh/Lọ thủy tinh giữa bàn làm việc bừa bộn-5.png
+55,white-glass/white-glass_04.png,white-glass,Rác tái chế,Chưa ghi chú,plastic,Rác tái chế,32.50,Đúng nhóm,Gốc: Chai thủy tinh/f911506d-62f3-41c5-9074-073e14c97200.png
+56,white-glass/white-glass_05.png,white-glass,Rác tái chế,Chưa ghi chú,green-glass,Rác tái chế,68.46,Đúng,"Gốc: Chai thủy tinh/Ảnh ChatGPT 15_48_21 21 thg 11, 2026-1.png (Ảnh AI tạo sinh)"
+57,white-glass/white-glass_06.png,white-glass,Rác tái chế,Chưa ghi chú,white-glass,Rác tái chế,54.48,Đúng,"Gốc: Chai thủy tinh/Ảnh ChatGPT 15_48_22 21 thg 11, 2026-2.png (Ảnh AI tạo sinh)"
+58,white-glass/white-glass_07.png,white-glass,Rác tái chế,Chưa ghi chú,brown-glass,Rác tái chế,82.84,Đúng,"Gốc: Chai thủy tinh/Ảnh ChatGPT 15_48_24 21 thg 11, 2026-3.png (Ảnh AI tạo sinh)"
+59,white-glass/white-glass_08.png,white-glass,Rác tái chế,Chưa ghi chú,green-glass,Rác tái chế,17.00,Đúng,"Gốc: Chai thủy tinh/Ảnh ChatGPT 15_48_26 21 thg 11, 2026-4.png (Ảnh AI tạo sinh)"
+60,white-glass/white-glass_09.png,white-glass,Rác tái chế,Chưa ghi chú,white-glass,Rác tái chế,22.99,Đúng,"Gốc: Chai thủy tinh/Ảnh ChatGPT 15_48_27 21 thg 11, 2026-5.png (Ảnh AI tạo sinh)"
+61,white-glass/white-glass_10.png,white-glass,Rác tái chế,Chưa ghi chú,brown-glass,Rác tái chế,41.31,Đúng,"Gốc: Chai thủy tinh/Ảnh ChatGPT 15_48_28 21 thg 11, 2026-6.png (Ảnh AI tạo sinh)"
+62,white-glass/white-glass_11.png,white-glass,Rác tái chế,Chưa ghi chú,green-glass,Rác tái chế,55.62,Đúng,"Gốc: Chai thủy tinh/Ảnh ChatGPT 15_48_30 21 thg 11, 2026-7.png (Ảnh AI tạo sinh)"
+63,white-glass/white-glass_12.png,white-glass,Rác tái chế,Chưa ghi chú,brown-glass,Rác tái chế,56.49,Đúng,"Gốc: Chai thủy tinh/Ảnh ChatGPT 15_48_31 21 thg 11, 2026-8.png (Ảnh AI tạo sinh)"
+64,white-glass/white-glass_13.png,white-glass,Rác tái chế,Chưa ghi chú,plastic,Rác tái chế,39.01,Đúng nhóm,"Gốc: Chai thủy tinh/Ảnh ChatGPT 15_48_33 21 thg 11, 2026-9.png (Ảnh AI tạo sinh)"
+65,white-glass/white-glass_14.png,white-glass,Rác tái chế,Chưa ghi chú,brown-glass,Rác tái chế,50.50,Đúng,"Gốc: Chai thủy tinh/Ảnh ChatGPT 15_48_34 21 thg 11, 2026-10.png (Ảnh AI tạo sinh)"

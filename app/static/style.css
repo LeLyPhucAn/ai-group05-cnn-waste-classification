@@ -1,0 +1,110 @@
+/* ==========================================================================
+   style.css - Giao diện tối giản cho Hệ thống Phân loại Rác thải (Nhóm 05)
+   ========================================================================== */
+
+/* Ẩn hoàn toàn thanh tiêu đề mặc định, nút Deploy, icon Stop và Sidebar của Streamlit */
+header[data-testid="stHeader"],
+[data-testid="stToolbar"],
+[data-testid="stStatusWidget"],
+[data-testid="stDecoration"],
+[data-testid="stSidebar"],
+[data-testid="collapsedControl"],
+.stAppDeployButton,
+.stDeployButton,
+iframe[height="1"],
+#MainMenu,
+footer {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+/* Căn chỉnh khoảng trống gọn gàng ở giữa màn hình */
+.block-container {
+    max-width: 1050px;
+    padding-top: 2rem !important;
+    padding-bottom: 2.5rem !important;
+}
+
+/* Tiêu đề chính căn giữa */
+.app-header {
+    text-align: center;
+    padding: 1.6rem 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #43b04a 0%, #2196f3 100%);
+    box-shadow: 0 8px 20px rgba(33, 150, 243, 0.18);
+}
+
+.app-header h1 {
+    margin: 0 0 0.35rem 0;
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    color: #ffffff;
+}
+
+.app-header p {
+    margin: 0;
+    font-size: 1.02rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.95);
+}
+
+/* Thẻ hiển thị kết quả phân loại */
+.result-card {
+    padding: 1.35rem 1.5rem;
+    border-radius: 14px;
+    margin-top: 0.5rem;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
+}
+
+.result-group {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #ffffff;
+    text-transform: uppercase;
+}
+
+.result-name {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin-top: 0.4rem;
+}
+
+.result-meta {
+    font-size: 0.95rem;
+    color: #334155;
+    margin-top: 0.25rem;
+}
+
+/* Hộp hướng dẫn xử lý rác */
+.guide-box {
+    margin-top: 1rem;
+    padding: 0.95rem 1.15rem;
+    border-radius: 10px;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-left: 4px solid #2196f3;
+    color: #1e293b;
+    font-size: 0.95rem;
+    line-height: 1.55;
+}
+
+/* Nút bấm chính */
+.stButton > button[kind="primary"] {
+    background: linear-gradient(90deg, #43b04a, #2e7d32);
+    border: none;
+    border-radius: 10px;
+    font-weight: 700;
+    padding: 0.65rem 1.2rem;
+    font-size: 1rem;
+    transition: opacity 0.2s ease;
+}
+
+.stButton > button[kind="primary"]:hover {
+    opacity: 0.92;
+}

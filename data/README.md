@@ -1,14 +1,14 @@
 # Hướng dẫn & Quy chuẩn Dữ liệu (Garbage Classification 12 lớp)
 
-Thành viên phụ trách chính: **Thành viên 2 (TV2 - Data & Augmentation)**  
-Phối hợp kỹ thuật: **Thành viên 1 (TV1 - Kiến trúc & Trích xuất đặc trưng)**
+Thành viên phụ trách chính: **Thành viên 2 (Trần Lâm - Data & Augmentation)**  
+Phối hợp kỹ thuật: **Thành viên 1 (Lê Lý Phúc An - Kiến trúc & Trích xuất đặc trưng)**
 
 ---
 
 ## 1. Nguồn dữ liệu & Cấu trúc phân loại
-- **Bộ dữ liệu:** Kaggle *"Garbage Classification"* gồm 12 lớp rác thải sinh hoạt chi tiết.
-- **Tổng số lượng ảnh gốc:** 15.515 ảnh (định dạng JPG/PNG).
-- **Thứ tự 12 lớp chuẩn hóa:** Lưu tại `data/class_names.json` (sắp xếp theo thứ tự chữ cái ABC):
+- **Bộ dữ liệu gốc:** Kaggle *"Garbage Classification"* gồm 12 lớp rác thải sinh hoạt chi tiết (15.515 ảnh gốc).
+- **Sau khi làm sạch (`src/prepare_data.py`):** Đã lọc ảnh lỗi (0 ảnh) và loại bỏ **19 ảnh trùng lặp nội dung MD5** (`clothes`: -1, `green-glass`: -15, `white-glass`: -3) $\rightarrow$ còn **15.496 ảnh hợp lệ**, đã xác minh **0 ảnh rò rỉ** giữa Train / Val / Test (`src/make_stats.py`).
+- **Thứ tự 12 lớp chuẩn hóa:** Lưu tại `data/class_names.json` (sắp xếp theo thứ tự bảng chữ cái):
   1. `battery` (Pin / Ắc quy)
   2. `biological` (Rác hữu cơ / Thức ăn thừa)
   3. `brown-glass` (Thủy tinh nâu)
@@ -25,39 +25,25 @@ Phối hợp kỹ thuật: **Thành viên 1 (TV1 - Kiến trúc & Trích xuất 
 ---
 
 ## 2. Quy tắc chia tập dữ liệu (70% - 15% - 15%)
-Để đảm bảo tính khách quan và kiểm soát rò rỉ dữ liệu (Data Leakage), việc chia tập phải thực hiện phân tầng (**Stratified Split**) với `random_state = 42`:
+Chia phân tầng (**Stratified Split**) với `random_state = 42` (chi tiết từng lớp tại `data/data_statistics.csv` và `results/charts/data_statistics.csv`):
 
-| Tập dữ liệu | Tỷ lệ | Số lượng ảnh (Gốc) | Số lượng ảnh (Có Augmentation) | Mục đích sử dụng |
+| Tập dữ liệu | Tỷ lệ | Số lượng ảnh (Gốc) | Số lượng ảnh (Có Augmentation) | Vị trí cục bộ |
 | :--- | :---: | :---: | :---: | :--- |
-| **Train** | **70%** | **10.854** ảnh | **21.708** ảnh | Huấn luyện mô hình Random Forest |
-| **Validation** | **15%** | **2.328** ảnh | **2.328** ảnh | Tối ưu siêu tham số Random Forest |
-| **Test** | **15%** | **2.333** ảnh | **2.333** ảnh | Đánh giá độc lập & phân tích nhầm lẫn |
-| **Tổng cộng** | **100%** | **15.515** ảnh | **26.369** mẫu | |
+| **Train** | **70%** | **10.847** ảnh | **32.541** ảnh *(gốc + 2 biến thể)* | `data/train/` |
+| **Validation** | **15%** | **2.324** ảnh | **2.324** ảnh *(không tăng cường)* | `data/val/` |
+| **Test** | **15%** | **2.325** ảnh | **2.325** ảnh *(không tăng cường)* | `data/test/` |
+| **Tổng cộng** | **100%** | **15.496** ảnh | **37.190** mẫu | |
 
 ---
 
-## 3. Quy tắc Data Augmentation
+## 3. Quy tắc Data Augmentation (`src/augmentation.py`)
 > [!IMPORTANT]
-> **Chỉ áp dụng Data Augmentation trên tập Train!**  
-> Tuyệt đối **KHÔNG** áp dụng Augmentation lên tập Validation và Test để kết quả đánh giá phản ánh chân thực năng lực khái quát hóa trên dữ liệu thực tế.
+> **Chỉ áp dụng Data Augmentation trên tập Train!** Tuyệt đối giữ nguyên tập Validation và Test.
 
-- **Kịch bản thực nghiệm:**
-  1. **Kịch bản 1 (Không Augmentation - Raw Baseline):** 10.854 vector Train gốc.
-  2. **Kịch bản 2 (Có Augmentation - Tăng cường):** 100% ảnh gốc + sinh thêm 1 bản biến đổi ngẫu nhiên cho mỗi ảnh, nâng quy mô tập Train lên 21.708 vector.
-- **Các phép biến đổi áp dụng:**
+- **Quy tắc sinh ảnh:** Giữ nguyên 100% ảnh gốc (`10.847`) + sinh thêm `N_AUG = 2` biến thể cho mỗi ảnh (`21.694`) $\rightarrow$ tổng **32.541 mẫu Train**.
+- **Các phép biến đổi (`seed = 42`):**
   - `RandomHorizontalFlip(p=0.5)`: Lật ngang ngẫu nhiên.
-  - `RandomRotation(degrees=15)`: Xoay góc nhẹ $\pm 15^\circ$.
-  - `RandomResizedCrop(224, scale=(0.85, 1.0))`: Cắt phóng ngẫu nhiên.
-  - `ColorJitter(brightness=0.15, contrast=0.15)`: Thay đổi nhẹ độ sáng và độ tương phản.
-
----
-
-## 4. Ánh xạ 12 lớp sang 4 nhóm xử lý rác
-Mô hình AI huấn luyện trên toàn bộ **12 lớp chi tiết** để phục vụ phân tích ma trận nhầm lẫn (Confusion Matrix). Trên ứng dụng giao diện (Streamlit), kết quả sẽ được ánh xạ sang **4 nhóm xử lý**:
-
-| Nhóm xử lý | Các lớp tương ứng trong bộ 12 lớp | Màu nhận diện | Hướng dẫn phân loại |
-| :--- | :--- | :---: | :--- |
-| **Rác hữu cơ** | `biological` | Xanh lá | Bỏ vào thùng rác hữu cơ để làm phân compost. |
-| **Rác nguy hại** | `battery` | Đỏ / Cam | Gom riêng đến điểm thu hồi chất thải nguy hại, không vứt bừa bãi. |
-| **Rác tái chế** | `plastic`, `metal`, `paper`, `cardboard`, `white-glass`, `green-glass`, `brown-glass`, `clothes`, `shoes` | Xanh dương | Làm sạch sơ bộ, phân loại theo vật liệu và bỏ vào thùng tái chế. |
-| **Rác còn lại** | `trash` | Xám | Bỏ vào thùng rác vô cơ / rác sinh hoạt thông thường. |
+  - `RandomRotation(degrees=20)`: Xoay ngẫu nhiên $\pm 20^\circ$.
+  - `RandomResizedCrop(224, scale=(0.7, 1.0))`: Cắt/phóng ngẫu nhiên.
+  - `ColorJitter(brightness=0.3, contrast=0.3)`: Thay đổi độ sáng & độ tương phản.
+- **Ảnh minh họa:** `results/charts/augmentation_demo.png`.

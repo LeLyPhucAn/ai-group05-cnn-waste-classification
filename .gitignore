@@ -11,29 +11,39 @@ env/
 .pytest_cache/
 .ipynb_checkpoints/
 
-# Data and large vectors (as stated in document: không push dataset)
+# Data, raw/split/augmented images, and large feature vectors (không push dataset lên GitHub)
 data/*.npy
 data/*.npz
 data/dataset/
 data/raw/
 data/augmented/
+data/train/*
+!data/train/.gitkeep
+data/val/*
+!data/val/.gitkeep
+data/test/*
+!data/test/.gitkeep
+
+# Demo sample images (ảnh kiểm thử dung lượng lớn ~140MB, chỉ push README & CSV)
+demo_samples/*
+!demo_samples/.gitkeep
+!demo_samples/README.md
+!demo_samples/real_test_cases.csv
+
+# Model baseline cục bộ của TV1 (không push, giữ lại models/random_forest_model.joblib của TV3)
+models/baseline/
 
 # OS specific files
 .DS_Store
 Thumbs.db
 desktop.ini
 
-# App logs
+# App logs & temporary files
 *.log
-
 *.npy
 *.npz
-doc_content.txt
-__pycache__/
+bad_images.txt
+duplicate_images.txt
 
-# Report files (keep structure tracked)
-# report/
-
-
-src/generate_report_docx.py
-src/generate_vandap_docx.py
+# Report files (gửi qua Zalo theo quy ước nhóm)
+report/
